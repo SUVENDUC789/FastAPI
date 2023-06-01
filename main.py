@@ -19,8 +19,29 @@ async def read_item(request: Request):
     data = db.DB.collection.find({})
     notesData = []
     for i in data:
+        # print(i["_id"])
         notesData.append({
-            "id": i["_id"],
+            "id": str(i["_id"]),
+            "title": i["title"],
+            "msg": i["msg"],
+        })
+
+    return templates.TemplateResponse("index.html", {"request": request, "notesData": notesData})
+
+
+@app.post("/")
+async def data_insert(request: Request):
+    form = await request.form()
+    form = dict(form)
+    print(form)
+    db.DB.collection.insert_one(form)
+    data = db.DB.collection.find({})
+    notesData = []
+    for i in data:
+        # print(i["_id"])
+        notesData.append({
+            "id": str(i["_id"]),
+            "title": i["title"],
             "msg": i["msg"],
         })
 
