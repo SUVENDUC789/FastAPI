@@ -58,6 +58,14 @@
 
 
     <div class="container my-3">
+
+        {% if request.method == "POST" %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Successfully!</strong> inserted data
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        {% endif %}
         <h1 class="alert-danger py-3 px-2">Add your's notes</h1>
         <form method="post" action="/">
             <div class="mb-3">
@@ -87,6 +95,7 @@
                     <th scope="col">Title</th>
                     <th scope="col">Description</th>
                     <th scope="col">Date</th>
+                    <!-- <th scope="col">Action</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -95,7 +104,8 @@
                     <td scope="row">{{ item.id}}</td>
                     <td>{{ item.title}}</td>
                     <td>{{ item.msg }}</td>
-                    <td>@mdo</td>
+                    <td>{{item.date_time}}</td>
+                    <!-- <td><a href="/delete/{{item.date_time}}" class="btn btn-danger">Delete</a></td> -->
                 </tr>
                 {% endfor %}
             </tbody>
